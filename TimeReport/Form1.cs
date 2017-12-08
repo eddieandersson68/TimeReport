@@ -27,6 +27,10 @@ namespace TimeReport
 
         string Querycommand2 = "Select * From Project";
 
+        
+        
+
+
 
 
         public Form1()
@@ -95,22 +99,30 @@ namespace TimeReport
                     // column 1 is FirstName, column 2 is LastName 
 
 
+
+                listToReturn.Add(
+                    "Week: "      + reader[3].ToString().PadRight(5) + " " +
+                    "Hour: "      + reader[4].ToString().PadRight(5) + " "+
+                    "FirstName: " + reader[6].ToString().PadRight(5) + " "+
+                    "LastName: "  + reader[7].ToString().PadRight(5) + " "+
+                    "Project: "       + reader[9].ToString());
+
                     //foreach(var i in reader)
 
                     //{
                     //    listToReturn.Add((string)reader[1].ToString() + "\t" + (string)reader[2].ToString());
 
                     //}
-                    StringBuilder sb = new StringBuilder();
+                    //StringBuilder sb = new StringBuilder();
 
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        sb.Append(reader[i]);
-                        listToReturn.Add(reader[i].ToString());
-                        //listToReturn.Add(sb.ToString());
+                    //for (int i = 0; i < reader.FieldCount; i++)
+                    //{
+                    //    sb.Append(reader[i]);
+                    //    listToReturn.Add(reader[i].ToString());
+                    //    //listToReturn.Add(sb.ToString());
 
 
-                    }
+                    //}
 
                     //listToReturn.Add((string) reader[1].ToString() + "\t" + (string) reader[2].ToString());
                 }
