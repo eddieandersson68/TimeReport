@@ -15,12 +15,7 @@ namespace TimeReport
     public partial class Form1 : Form
     {
         public List<string> TimeSpentPerEmployeeOnProject = new List<string>();
-
-        int indexNr; 
-
-        //DataReaderClass dataReader = new DataReaderClass();
-
-        int index;
+        public List<string> listOfEmployees = new List<string>();
 
         string QueryCommandGetTimetableForSelectedPerson = "SELECT * FROM TimeReport " +
                     "Join Employee " +
@@ -29,12 +24,8 @@ namespace TimeReport
                     "ON Project.Project_ID = TimeReport.Project_ID " +
                     "Where Employee.FirstName = ('Sven')";
 
-        
-        
-
         string QuerycCommandGetProject = "Select * FROM Project";
 
-        string QuerycCommandGetPeople = "Select * FROM Employee";
 
         /* Nicklas kod 
         string Querycmmand3 = $"select TimeTable.Week,TimeTable.Hour,Projects.ProjectName " +
@@ -49,9 +40,12 @@ namespace TimeReport
         public Form1()
         {
             InitializeComponent();
-            PopulateComboBox();
-           // PupulateListBox();
+           // PopulateComboBox();
+            PupulateListBox();
+
+            // DataAdapter();
         }
+
 
         public void PupulateListBox()
         {
@@ -66,102 +60,134 @@ namespace TimeReport
         }
 
 
-        public void PopulateComboBox()
-        {
-            var list2 = ReadDBEmployee();
+        //public void PopulateComboBox()
+        //{
+        //    var list2 = ReadDBEmployee();
 
-            foreach (var i in list2)
-            {
-                cmbxEmployee.Items.Add(i.ToString());
-            }
-        }
+        //    foreach (var i in list2)
+        //    {
+        //        cmbxEmployee.Items.Add(i.ToString());
+        //    }
+        //}
+
 
         public void cmbxEmployee_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //private void ComboBox_SelectedIndexChanged(object sender, System.EventArgs e)
-
-            //I test if the combox box i selected and if it is execute this method QuveryListBox
             if ((cmbxEmployee.SelectedIndex != -1))
             {
-                
-
-
-                string QueryCommandGetTimetableForSelectedPerson = "SELECT * FROM TimeReport " +
-                        "Join Employee " +
-                        "ON Employee.Person_ID = TimeReport.Person_ID " +
-                        "Join Project " +
-                        "ON Project.Project_ID = TimeReport.Project_ID " +
-                        cmbxEmployee.SelectedItem.ToString();
-
-
-                //List<string> TimeSpentPerEmployeeOnProject = new List<string>();
-
-                string connectionStr = ConfigurationManager.ConnectionStrings["StaffConnection"].ConnectionString;
-
-                using (SqlConnection connection3 = new SqlConnection(connectionStr))
-                {
-                    SqlCommand command3 = new SqlCommand(SetSQLQueryCommandString(QueryCommandGetTimetableForSelectedPerson), connection3);
-
-
-                    connection3.Open();
-                    SqlDataReader reader3 = command3.ExecuteReader();
-                    while (reader3.Read())
-                    {
-
-                        TimeSpentPerEmployeeOnProject.Add(
-                                 "Week: " + (string)reader3[3].ToString().PadRight(5)
-                               + " Hour: " + (string)reader3[4].ToString().PadRight(5)
-                               + " FirstName: " + (string)reader3[6].ToString().PadRight(5)
-                               + " LastName: " + (string)reader3[7].ToString().PadRight(5)
-                               + " Project: " + (string)reader3[9].ToString().PadRight(5));
-
-                        //for (int i = 2; i < reader3.FieldCount; i++)
-                        //{
-                        //    TimeSpentPerEmployeeOnProject.Add((string)reader3[1].ToString() + "\t" + (string)reader3[2].ToString());
-                        //}
-                    }
-
-                }
-
-
-                PupulateListBox();
-                //cmbxEmploye.SelectedItem;
-                ////cmbxEmployee.SelectedIndex;
-                //cmbxEmployee.SelectedIdex(indexNr);
-                //var list2 = DBTableToReturn();
-
-                //foreach (var i in list2)
-                //{
-                //    cmbxEmployee.Items.Add(i.ToString());
-                //}
-
+                GetProjektAndPerson();
             }
-
         }
 
-
-
-        public List<string> ReadDBEmployee()
+        public void GetProjektAndPerson()
         {
-            List<string> listOfEmployees = new List<string>();
+            var d = cmbxEmployee.SelectedItem.ToString();
+            var b = d.Split();
+            List<string> testTemp = new List<string>();
+            foreach (var i in d)
+            {
+                if (i != " ")
+                {
+                    testTemp.Add(i);
+                }
+
+            }
+            string connectionStr = ConfigurationManager.ConnectionStrings["StaffConnection"].ConnectionString;
+
+            //ovanför sql frågan du har vil du ju göra typ
+
+            string QueryCommandGetTimetableForSelectedPerson2 = $"SELECT TimeReport.WeekNr, TimeReport.Hours, Project.ProjectName " +
+                     $"FROM TimeReport INNER JOIN Employee " +
+                     $"ON Employee.Person_ID = TimeReport.Person_ID " +
+                     $"INNER JOIN Project " +
+                     $"ON TimeReport.Project_ID = Project.Project_ID " +
+                     $" = TimeReport.Project_ID " +
+                     $"Where Employee.FirstName = '{listOfEmployees[0]}' and Employee.LastName = '{listOfEmployees[1]}'";
+
+         
+
+
+
+
+
+
+            using (SqlConnection connection = new SqlConnection(connectionStr))
+            {
+                DataSet ds = new DataSet();
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = connection;
+                cmd.CommandText = "QueryCommandGetTimetableForSelectedPerson2";
+                cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar).Value = testTemp[0];
+                cmd.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = testTemp[1];
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+
+                da.Fill(ds, "TimeReport");
+                listbxDataFromDB.Items.Clear();
+                if (ds != null)
+                {
+                    foreach (DataRow row in ds.Tables["TimeReport"].Rows)
+                    {
+                        listbxDataFromDB.Items.Add("Week: " + row[0].ToString().PadRight(5) + "Hour: " + row[1].ToString().PadRight(5) + "Project: " + row[3].ToString().PadRight(5));
+                    }
+                }
+            }
+        }
+                //SqlDataAdapter da = new SqlDataAdapter("SELECT * from Employee;", connection);
+
+
+                //SqlCommand command = new SqlCommand(SetSQLQueryCommandString(QueryCommandGetTimetableForSelectedPerson2), connection3);
+
+
+
+        //        connection.Open();
+        //        SqlDataReader reader = command.ExecuteReader();
+        //        while (reader.Read())
+        //        {
+
+        //            TimeSpentPerEmployeeOnProject.Add(
+        //                     "Week: " + (string)reader[3].ToString().PadRight(5)
+        //                   + " Hour: " + (string)reader[4].ToString().PadRight(5)
+        //                   + " FirstName: " + (string)reader[6].ToString().PadRight(5)
+        //                   + " LastName: " + (string)reader[7].ToString().PadRight(5)
+        //                   + " Project: " + (string)reader[9].ToString().PadRight(5));
+
+        //            for (int i = 2; i < reader.FieldCount; i++)
+        //            {
+        //                TimeSpentPerEmployeeOnProject.Add((string)reader[1].ToString() + "\t" + (string)reader[2].ToString());
+        //            }
+        //        }
+
+        //    }
+        //}
+
+
+
+
+        public void ReadDBEmployee()
+        {
 
             string connectionStr = ConfigurationManager.ConnectionStrings["StaffConnection"].ConnectionString;
 
-            using (SqlConnection connection2 = new SqlConnection(connectionStr))
+
+            string QuerycCommandGetPeople = "Select * FROM Employee";
+            using (SqlConnection connection = new SqlConnection(connectionStr))
             {
-                SqlCommand command2 = new SqlCommand(SetSQLQueryCommandString(QuerycCommandGetPeople), connection2);
+
+                SqlCommand command = new SqlCommand(QuerycCommandGetPeople, connection);
 
 
-                connection2.Open();
-                SqlDataReader reader2 = command2.ExecuteReader();
-                while (reader2.Read())
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    for (int i = 2; i < reader2.FieldCount; i++)
+                    for (int i = 2; i < reader.FieldCount; i++)
                     {
-                        listOfEmployees.Add((string)reader2[1].ToString() + "\t" + (string)reader2[2].ToString());
+                        cmbxEmployee.Items.Add((string)reader[1].ToString() + "\t" + (string)reader[2].ToString());
+
                     }
                 }
-                return listOfEmployees;
             }
         }
 
@@ -187,7 +213,7 @@ namespace TimeReport
                 //    "Join Project " +
                 //    "ON Project.Project_ID = TimeReport.Project_ID " +
                 //    "Where Employee.FirstName = ('Eddie')", connection);
-                SqlCommand command = new SqlCommand(SetSQLQueryCommandString(QueryCommandGetTimetableForSelectedPerson), connection);
+                SqlCommand command = new SqlCommand(QueryCommandGetTimetableForSelectedPerson, connection);
 
 
 
@@ -218,28 +244,61 @@ namespace TimeReport
                     //    listToReturn.Add(reader[i].ToString());
                     //listToReturn.Add(sb.ToString());
 
-
-
-
-
-
-
-
                     //listToReturn.Add((string) reader[1].ToString() + "\t" + (string) reader[2].ToString());
-
-
                 }
-
-
             }
-
             return listToReturn;
 
         }
 
+
+
+
+
+
+
+        public void DataAdapter()
+        {
+            //string connStr = Properties.Settings.Default.ToString();
+            //SqlConnection conn = new SqlConnection(connStr);
+
+            string connectionStr = ConfigurationManager.ConnectionStrings["StaffConnection"].ConnectionString;
+
+            //using (SqlConnection connection = new SqlConnection(connectionStr))
+            SqlConnection connection = new SqlConnection(connectionStr);
+
+
+            SqlDataAdapter da = new SqlDataAdapter("SELECT * from Employee;", connection);
+
+            SqlCommandBuilder cmb = new SqlCommandBuilder(da);
+            //string queryString = "SELECT * from Employee;";
+            /// SqlDataAdapter da = new SqlDataAdapter(queryString, conn);
+            DataSet ds = new DataSet();
+            da.Fill(ds, "Employees");
+            listbxDataFromDB.Text = ds.Tables[0].ToString();
+            //ds.Tables[0].Constraints.Add("Emil", ds.Tables[0].Columns[0], true);
+            //DataRow row;
+            //row = ds.Tables[0].NewRow();
+
+            //ds.Tables[0].Rows.Add(row);
+            //da.Update(ds.Tables[0]);
+
+            //MessageBox.Show("Employee Record Added");
+        }
+
+
+
+
+
+
         public string SetSQLQueryCommandString(string command)
         {
             return command;
+        }
+
+        private void btnSubmitReport_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
