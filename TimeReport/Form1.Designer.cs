@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmbxEmployee = new System.Windows.Forms.ComboBox();
             this.listbxDataFromDB = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.lblEmployee = new System.Windows.Forms.Label();
-            this.cmbxEmployee = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,6 +48,15 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "TimeRepport";
+            // 
+            // cmbxEmployee
+            // 
+            this.cmbxEmployee.FormattingEnabled = true;
+            this.cmbxEmployee.Location = new System.Drawing.Point(29, 44);
+            this.cmbxEmployee.Name = "cmbxEmployee";
+            this.cmbxEmployee.Size = new System.Drawing.Size(262, 21);
+            this.cmbxEmployee.TabIndex = 4;
+            this.cmbxEmployee.SelectedIndexChanged += new System.EventHandler(this.cmbxEmployee_SelectedIndexChanged);
             // 
             // listbxDataFromDB
             // 
@@ -74,15 +83,6 @@
             this.lblEmployee.Size = new System.Drawing.Size(53, 13);
             this.lblEmployee.TabIndex = 0;
             this.lblEmployee.Text = "Employee";
-            // 
-            // cmbxEmployee
-            // 
-            this.cmbxEmployee.FormattingEnabled = true;
-            this.cmbxEmployee.Location = new System.Drawing.Point(29, 44);
-            this.cmbxEmployee.Name = "cmbxEmployee";
-            this.cmbxEmployee.Size = new System.Drawing.Size(262, 21);
-            this.cmbxEmployee.TabIndex = 4;
-            this.cmbxEmployee.SelectedIndexChanged += new System.EventHandler(this.cmbxEmployee_SelectedIndexChanged);
             // 
             // Form1
             // 

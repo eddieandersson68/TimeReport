@@ -58,15 +58,15 @@ namespace TimeReport
 
         }
 
-        //public void DataAdapter()
-        //{
-        //string connStr = Properties.Settings.Default.ToString();
-        //SqlConnection conn = new SqlConnection(connStr);
-        //string queryString = "SELECT * from Employee;";
-        //SqlDataAdapter da = new SqlDataAdapter(queryString, conn);
-        //DataSet ds = new DataSet();
-        //da.Fill(ds);
-        //}
+        public void DataAdapter()
+        {
+            string connStr = Properties.Settings.Default.ToString();
+            SqlConnection conn = new SqlConnection(connStr);
+            string queryString = "SELECT * from Employee;";
+            SqlDataAdapter da = new SqlDataAdapter(queryString, conn);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+        }
     }
 }
 
