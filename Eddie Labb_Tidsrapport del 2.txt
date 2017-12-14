@@ -1,0 +1,25 @@
+Här kommer min rapport med SQL frågorna enligt del 2.
+
+Ja denna Labb var svår tycker jag, då jag har fortfarande uppenbarligen svårt att förstå hur man ska få ut det man vill ur komplexa datatyper.
+
+När jag väl fick hjälp med hur jag skulle tänka kring det så gick det ju lite bättre. Men jag har fortfarande inte fattat detta med Datareaders, DataAdapters,DataSets och hur och var man återavnvänder en SQL anslutning.
+
+Nu tycker jag att jag öppnar nya anslutningar i koden hela tiden och jag är väldigt osäker på om det är rätt sett att göra?
+
+
+
+1. Select * From Staff.dbo.Employee
+
+2. Select * From Staff.dbo.Project
+
+3. INSERT INTO TimeReport (Person_ID,Project_ID,WeekNr,Hours)VALUES (2,1,3,21)
+
+4. use Staff
+SELECT * 
+From Staff.dbo.TimeReport
+Join Employee
+on Employee.Person_ID = TimeReport.Person_ID
+Join Project
+on Project.Project_ID =	TimeReport.Project_ID
+Where 
+Employee.FirstName = ('Eddie')

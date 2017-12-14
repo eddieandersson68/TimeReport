@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
-using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TimeReport
@@ -59,7 +53,6 @@ namespace TimeReport
                 }
             }
         }
-
 
         public void ReadDBEmployee()
         {
@@ -125,7 +118,6 @@ namespace TimeReport
         {
             string WorkedHours = tbxWorkedHours.Text;
         }
-        
 
         private void btnSubmitReport_Click(object sender, EventArgs e)
         {
@@ -139,7 +131,6 @@ namespace TimeReport
             string columns = emp + "," + project + "," + week + "," + hour;
 
             string SqlQuery =  "INSERT INTO TimeReport(Person_ID, Project_ID, WeekNr, Hours)VALUES("+columns+")";
-           
 
             using (SqlConnection connection = new SqlConnection(connectionStr))
             {
