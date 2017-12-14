@@ -21,7 +21,6 @@ namespace TimeReport
             Id = id;
             FirstName = fname;
             LastName = lname;
-
         }
 
         public string MakeString()
