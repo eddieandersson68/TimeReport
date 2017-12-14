@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnSubmitReport = new System.Windows.Forms.Button();
+            this.tbxWorkedHours = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cmbxWeek = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cmbxProject = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.cmbxEmployee = new System.Windows.Forms.ComboBox();
             this.listbxDataFromDB = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.lblEmployee = new System.Windows.Forms.Label();
-            this.cmbxProject = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cmbxWeek = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.tbxWorkedHours = new System.Windows.Forms.TextBox();
-            this.btnSubmitReport = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,8 +63,71 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "TimeRepport";
             // 
+            // btnSubmitReport
+            // 
+            this.btnSubmitReport.Location = new System.Drawing.Point(275, 561);
+            this.btnSubmitReport.Name = "btnSubmitReport";
+            this.btnSubmitReport.Size = new System.Drawing.Size(75, 23);
+            this.btnSubmitReport.TabIndex = 11;
+            this.btnSubmitReport.Text = "Submit Report";
+            this.btnSubmitReport.UseVisualStyleBackColor = true;
+            this.btnSubmitReport.Click += new System.EventHandler(this.btnSubmitReport_Click);
+            // 
+            // tbxWorkedHours
+            // 
+            this.tbxWorkedHours.Location = new System.Drawing.Point(29, 171);
+            this.tbxWorkedHours.Name = "tbxWorkedHours";
+            this.tbxWorkedHours.Size = new System.Drawing.Size(100, 20);
+            this.tbxWorkedHours.TabIndex = 10;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(26, 155);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(76, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Worked Hours";
+            // 
+            // cmbxWeek
+            // 
+            this.cmbxWeek.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbxWeek.FormattingEnabled = true;
+            this.cmbxWeek.Location = new System.Drawing.Point(29, 111);
+            this.cmbxWeek.Name = "cmbxWeek";
+            this.cmbxWeek.Size = new System.Drawing.Size(46, 21);
+            this.cmbxWeek.TabIndex = 8;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(26, 95);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(36, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Week";
+            // 
+            // cmbxProject
+            // 
+            this.cmbxProject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbxProject.FormattingEnabled = true;
+            this.cmbxProject.Location = new System.Drawing.Point(318, 44);
+            this.cmbxProject.Name = "cmbxProject";
+            this.cmbxProject.Size = new System.Drawing.Size(262, 21);
+            this.cmbxProject.TabIndex = 6;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(315, 28);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(40, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Project";
+            // 
             // cmbxEmployee
             // 
+            this.cmbxEmployee.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbxEmployee.FormattingEnabled = true;
             this.cmbxEmployee.Location = new System.Drawing.Point(29, 44);
             this.cmbxEmployee.Name = "cmbxEmployee";
@@ -83,7 +146,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(26, 74);
+            this.label2.Location = new System.Drawing.Point(26, 206);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(170, 13);
             this.label2.TabIndex = 1;
@@ -97,66 +160,6 @@
             this.lblEmployee.Size = new System.Drawing.Size(53, 13);
             this.lblEmployee.TabIndex = 0;
             this.lblEmployee.Text = "Employee";
-            // 
-            // cmbxProject
-            // 
-            this.cmbxProject.FormattingEnabled = true;
-            this.cmbxProject.Location = new System.Drawing.Point(318, 44);
-            this.cmbxProject.Name = "cmbxProject";
-            this.cmbxProject.Size = new System.Drawing.Size(262, 21);
-            this.cmbxProject.TabIndex = 6;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(315, 28);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Project";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(26, 108);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(36, 13);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Week";
-            // 
-            // cmbxWeek
-            // 
-            this.cmbxWeek.FormattingEnabled = true;
-            this.cmbxWeek.Location = new System.Drawing.Point(29, 124);
-            this.cmbxWeek.Name = "cmbxWeek";
-            this.cmbxWeek.Size = new System.Drawing.Size(46, 21);
-            this.cmbxWeek.TabIndex = 8;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(26, 155);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(76, 13);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "Worked Hours";
-            // 
-            // tbxWorkedHours
-            // 
-            this.tbxWorkedHours.Location = new System.Drawing.Point(29, 184);
-            this.tbxWorkedHours.Name = "tbxWorkedHours";
-            this.tbxWorkedHours.Size = new System.Drawing.Size(100, 20);
-            this.tbxWorkedHours.TabIndex = 10;
-            // 
-            // btnSubmitReport
-            // 
-            this.btnSubmitReport.Location = new System.Drawing.Point(309, 561);
-            this.btnSubmitReport.Name = "btnSubmitReport";
-            this.btnSubmitReport.Size = new System.Drawing.Size(75, 23);
-            this.btnSubmitReport.TabIndex = 11;
-            this.btnSubmitReport.Text = "Submit Report";
-            this.btnSubmitReport.UseVisualStyleBackColor = true;
-            this.btnSubmitReport.Click += new System.EventHandler(this.btnSubmitReport_Click);
             // 
             // Form1
             // 
